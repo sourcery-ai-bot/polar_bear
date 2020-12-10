@@ -20,7 +20,7 @@ def _detect_type(content, threshold_category_rate):
             return 'numerical'
     if dtype in float_dtype_list:
         return 'numerical'
-    if (dtype == 'bool') or (dtype == 'object'):
+    if dtype in ['bool', 'object']:
         return 'category'
 
 

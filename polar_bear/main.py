@@ -28,7 +28,7 @@ def convert_multi_category(train_df, test_df, split=','):
     for _, row in df.iterrows():
         droped_values = list(chain.from_iterable(
             pd.Series(row).dropna().str.split(split).to_list()))
-        if len(droped_values) == 0:
+        if not droped_values:
             unique_values = []
         else:
             unique_values = pd.Series(droped_values).str.strip().values
@@ -103,7 +103,7 @@ def convert_series(train_series: pd.Series, test_series: pd.Series, threshold_on
             mean = series.mean()
             series[np.isnan(series)] = mean
             return_df[series.name + "_float"] = series
-    elif (dtype == 'object') or (dtype == 'bool'):
+    elif dtype in ['object', 'bool']:
         if value_counts_number < (rows_count * threshold_one_hot):
             if not include_dummy_na:
                 mode_value = series.value_counts().index[0]
